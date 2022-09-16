@@ -37,7 +37,7 @@ function Create(){
             <div>
                 <h1> 
                     <u>
-                        Crear Nuevo producto
+                        Crear Nuevo producto.
                     </u>
                     
                 </h1>
