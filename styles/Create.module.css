@@ -1,0 +1,35 @@
+.df{
+    display: flex;
+}
+.fdc{
+    flex-direction: column;
+}
+.aic{
+    align-items: center;
+}
+.jcc{
+    justify-content: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    margin: 0 auto;
+    
+}
+.input{
+    margin-bottom: 0.5rem;
+}
+.h1{
+    color: black;
+    text-align: center;
+}
+
+.container {
+    background-color: white;
+    width: 50rem;
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
