@@ -28,7 +28,8 @@ function Create(){
            
             console.log(data.producto);
             setProduct(initialState)
-
+            
+            // Agregamos el producto
             const newListProducts = [data.producto, ...products]
             //fetchProducts()
             setProducts(newListProducts)
@@ -39,6 +40,7 @@ function Create(){
     }
 
     const fetchProducts = () => {
+        console.log("fetching de datos");
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/products`)
         .then(res => res.json())
         .then(({data}) =>{
@@ -48,11 +50,11 @@ function Create(){
     }
     // Obtenemos todos los productos 
     useEffect(() => {
-        fetchProducts
-    }, [])
+        fetchProducts()
+    }, []) // si le dejamos el arreglo de dependencia vacio solo se ejecuta una vez (cuando se renderiza el componente)
 
-    //console.log(products);
     
+
     return(
         <>
             <div className="container df  jcsa">
@@ -64,8 +66,13 @@ function Create(){
                         
                     </h2>
                     <form>
-                        <input className="onone" type='text' name="name" onChange={handleChange}  value={product.name} ></input>
-                        <input className="onone" type='number' name="price" onChange={handleChange} value={product.price}></input>
+                        <input className="onone" type="number" name="barCode" onChange={handleChange} value={product.barCode}  placeholder="Codigo de barras"></input>
+                        <input className="onone" type='text' name="name" onChange={handleChange}  value={product.name}  placeholder="Nombre de producto"></input>
+                        <input className="onone" type='text' name="description" onChange={handleChange}  value={product.description}  placeholder="Descripcion"></input>
+                        <input className="onone" type='number' name="costPrice" onChange={handleChange} value={product.costPrice} placeholder="Precio de costo"></input>
+                        <input className="onone" type='number' name="price" onChange={handleChange} value={product.price} placeholder="Precio"></input>
+                        <input className="onone" type='number' name="stock" onChange={handleChange} value={product.stock} placeholder="Stock"></input>
+                        <input className="onone" type='date' name="expirationDate" onChange={handleChange} value={product.expirationDate} placeholder="Fecha de vencimiento"></input>
                         <button onClick={handleClick}> Crear producto</button>
                     </form>
                 </div>
@@ -73,10 +80,15 @@ function Create(){
                 <div className="products-container">
                     {products.map( (p) => {
                         return(
-                        <div className="product df aic jcsb" key={p._id}>
+                        <div className="product df aic jcsb" key={p.barCode}>
                             
+                            <span>{p.barCode}</span>
                             <span>{p.name}</span>
+                            <span>{p.description}</span>
+                            <span>{p.costPrice}</span>
                             <span>{p.price}</span>
+                            <span>{p.stock}</span>
+                            
                         </div>
                         )
                         
