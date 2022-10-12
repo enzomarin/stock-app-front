@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 
 const initialState = {name: '', price: 0}
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 function Create(){
 
     const [product, setProduct] = useState(initialState)
@@ -38,10 +39,11 @@ function Create(){
         }
 
     }
+  
 
     const fetchProducts = () => {
         console.log("fetching de datos");
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/products`)
+        fetch(`${baseUrl}/products`)
         .then(res => res.json())
         .then(({data}) =>{
             console.log(data)
@@ -78,17 +80,36 @@ function Create(){
                 </div>
 
                 <div className="products-container">
+                    <div className="df jcsb" >
+                        <span>Bar code</span>
+                        <span>Name</span>
+                        <span>Stock</span>
+                        <span>cost Price</span>
+                        <span>Price</span>
+                    </div>
                     {products.map( (p) => {
                         return(
                         <div className="product df aic jcsb" key={p.barCode}>
                             
                             <span>{p.barCode}</span>
                             <span>{p.name}</span>
-                            <span>{p.description}</span>
-                            <span>{p.costPrice}</span>
-                            <span>{p.price}</span>
-                            <span>{p.stock}</span>
                             
+                            <span>{p.stock}</span>
+                            <span>${p.costPrice}</span>
+                            <div className=" df fdc">
+                                <span>${p.price}</span>
+                                <span style = {{color:'red', cursor: 'pointer'}} 
+                                    onClick={() =>{
+                                        fetch(`${baseUrl}/products/${p._id}`, {method:'DELETE'})
+                                        .then((res) => res.json() )
+                                        .then((data) => {
+                                            console.log(data);
+                                        })
+                                    }}
+                                    >
+                                        BORRAR
+                                    </span>
+                            </div>
                         </div>
                         )
                         
@@ -97,6 +118,7 @@ function Create(){
             </div>
             <style jsx>
                 {`
+                    
                     .df{
                         display: flex;
                     }
@@ -139,18 +161,27 @@ function Create(){
                     }
 
                     .container {
-                        background-color: white;
-                        width: 50rem;
+                        background: rgba(255,255,255, .9);
+                        width: 60rem;
                         margin: 0 auto;
                         margin-top: 5rem;
                         padding: 1rem;
                         border-radius: 0.5rem;
+                        position :relative;
+                    }
+                    .container::before{
+                        content: '';
+                        position: absolute;
+                        background: rgba(255,255,255,.15);
+                        inset:0 ;
+                        transform: rotate(-3deg);
+                        z-index: -1;
                     }
 
                     .products-container{
                         overflow: hidden;
                         overflow-y: auto;
-                        width: 25rem;
+                        width: 35rem;
                         max-height: 20rem;
                         padding: 0.5rem;
                     }
