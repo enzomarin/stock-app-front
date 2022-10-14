@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react"
+import NavBar from "../../components/navBar";
 
 const initialState = {name: '', price: 0}
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -59,6 +60,7 @@ function Create(){
 
     return(
         <>
+            <NavBar></NavBar>
             <div className="container df  jcsa">
                 <div className="df fdc">
                     <h2> 

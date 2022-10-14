@@ -127,3 +127,41 @@
     filter: invert(1);
   }
 }
+
+.mainnav{
+  
+  background-color: white;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 25px 0 black;
+ 
+}
+
+.mainnav *{
+  display: inline;
+}
+.li {
+  float: left;
+  margin: 20px;
+  cursor: pointer;
+}
+.liButton {
+  cursor: pointer;
+  float: right;
+  margin: 20px;
+}
+.headera {
+  color: black;
+  text-decoration: none;
+}
+
+.ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
