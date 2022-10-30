@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.3.6",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "axios": "^1.1.2",
     "cookie-cutter": "^0.2.0",
+    "framer-motion": "^6.5.1",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",
