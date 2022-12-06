@@ -1,18 +1,23 @@
-import Link from 'next/link'
 import { useState } from 'react'
 import {useCookies} from 'react-cookie'
 import { useRouter } from 'next/router'
-import styles from '../styles/Login.module.css'
 import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftElement, InputRightElement, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {FaUserAlt} from 'react-icons/fa'
+import {RiLockPasswordFill} from 'react-icons/ri'
 import {IoSunny, IoMoon} from 'react-icons/io5'
+import { useToast } from '@chakra-ui/react'
+import axios from 'axios'
 
-export default function Home() {
+
+export default function Index() {
   const {toggleColorMode} = useColorMode()
   const formBackGround = useColorModeValue('gray.400', 'gray.700')
   const [toggle, setToggle] = useState(false)
   const [showPass, setShowPass] = useState(false)
   const [cookie, setCookie ] = useCookies({})
+  const toast = useToast()
+
+  
   const [credentials, setCredentials] = useState({
     username: '',
     password: ''
@@ -30,6 +35,7 @@ export default function Home() {
   const handleSubmit = async (e)=>{
     e.preventDefault()
     console.log(credentials)
+    /*
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -51,6 +57,35 @@ export default function Home() {
         )
 
       }
+      else{
+        console.log('hola')
+        toast({
+          title: 'Error!',
+          description: 'Credenciales incorrectas!',
+          status:'error',
+          duration:'4000',
+          isClosable:true
+        })
+      }
+      */
+
+    await axios.post(`${process.env.NEXT_PUBLIC_BASIC_BACKEND_URL}/user/login`,credentials, {withCredentials: true})
+    .then((res) =>{
+      console.log(res.status);
+      router.push('/home')
+    })
+    .catch((error)=>{
+      console.log(error.response);
+      toast({
+        title: 'Error!',
+        description: error.response.data.message,
+        status: 'error',
+        duration:'4000',
+        isClosable:true
+      })
+    })
+
+
   }
 
   const showPassword = () => setShowPass(!showPass)
@@ -65,6 +100,7 @@ export default function Home() {
         </InputGroup>
 
         <InputGroup size='sm' mb={3}>
+          <InputLeftElement pointerEvents='none' children={<RiLockPasswordFill/>} color={'gray.400'} fontSize='1.2rem'/>
           <Input _focusVisible='none' name='password'  pr='4.5rem' type={showPass ? 'text' : 'password'} placeholder={'Enter password'} variant={'filled'} onChange={handleChange}></Input>
           <InputRightElement width='4.5rem'>
             <Button h='1.5rem' size='sm' onClick={showPassword} >
